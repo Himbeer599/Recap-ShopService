@@ -1,3 +1,4 @@
+import java.security.PublicKey;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -34,5 +35,15 @@ public class ShopService {
                 .filter(order->order.orderStatus().equals(orderStatus))
                 .collect(Collectors.toList());
     }
-
+    // New method to update an order's status
+    public Order updateOrder(String orderId, OrderStatus newStatus) throws OrderNotFoundException{
+        Order existingOrder = orders.getOrderById(orderId);
+        if(existingOrder == null){
+            throw new OrderNotFoundException("Order mit der Id: " + orderId + " wurde nicht gefunden!");
+        }
+        Order updateOrder = existingOrder.withOrderStatus(newStatus);
+        orders.removeOrder(orderId);
+        orders.addOrder(updateOrder);
+        return updateOrder;
+    }
 }
