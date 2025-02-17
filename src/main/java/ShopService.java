@@ -9,7 +9,7 @@ public class ShopService {
     //    private OrderRepo orderRepo = new OrderMapRepo();
     private OrderRepo orders = new OrderListRepo();
 
-    public Order addOrder(List<String> productIds) {
+    public Order addOrder(List<String> productIds) throws ProductNotFoundException {
         List<Product> products = new ArrayList<>();
         for (String productId : productIds) {
             Optional<Product> productToOrder = productRepo.getProductById(productId);
@@ -34,4 +34,5 @@ public class ShopService {
                 .filter(order->order.orderStatus().equals(orderStatus))
                 .collect(Collectors.toList());
     }
+
 }
