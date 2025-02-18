@@ -1,6 +1,7 @@
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 
 import java.security.PublicKey;
 import java.util.ArrayList;
@@ -10,13 +11,14 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
+//@NoArgsConstructor
+//@AllArgsConstructor
+@RequiredArgsConstructor
 public class ShopService {
-    private ProductRepo productRepo = new ProductRepo();
+    private final ProductRepo productRepo;
     //    private OrderRepo orderRepo = new OrderMapRepo();
 //    private OrderRepo orders = new OrderListRepo();
-    private OrderRepo orders;
+    private final OrderRepo orders;
 
     public Order addOrder(List<String> productIds) throws ProductNotFoundException {
         List<Product> products = new ArrayList<>();
